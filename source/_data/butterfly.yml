@@ -5,7 +5,7 @@
 # xxx || icon:
 #   xxx || 連結 || icon
 menu:
-  搜索: /search || fa fa-search
+  # 搜索: /search || fa fa-search
   首页: / || fa fa-home
   时间轴: /archives/ || fa fa-archive
   标签: /tags/ || fa fa-tags
@@ -72,10 +72,10 @@ algolia_search:
 # Please see doc for more details: https://docs.jerryc.me/config.html#本地搜索
 # ---------------
 local_search:
-  enable: false
+  enable: true
   labels:
-    input_placeholder: Search for Posts
-    hits_empty: "We didn't find any results for the search: ${query}" # if there are no result
+    input_placeholder: 请输入文章关键字
+    hits_empty: "噢抱歉，没有找到关于\"${query}\"的文章🙄" # if there are no result
 
 # MathJax
 # Please see doc for more details: https://docs.jerryc.me/config.html#mathjax
@@ -120,15 +120,15 @@ index_img: /img/sea-shore-bg.jpg
 default_top_img: /img/sea-shore-bg.jpg
 
 # the banner image of archive page
-archive_img:
+archive_img: /img/earth-cloud-bg.jpg
 
 # the banner image of tag page
 # tag page, look like https://xxxxxxxxx.com/tags/butterfly
-tag_img:
+tag_img: /img/earth-bg.jpg
 
 # the banner image of category page
 # category page, look like https://xxxxxxxxx.com/categories/butterfly
-category_img:
+category_img: /img/galaxy-bg.jpg
 
 # 如果你有使用hexo-douban，可配置這個
 # douban:
@@ -147,7 +147,7 @@ cover:
   position: both
   # 當沒有設置cover時，默認的封面顯示
   default_cover:
-    - /img/earth-bg.jpg
+    - /img/css-code.jpg
 
 # if the photo link cannot connect,it will show that
 lodding_bg:
@@ -259,20 +259,20 @@ gitalk:
 
 # valine comment system. https://valine.js.org
 valine:
-  enable: false # if you want use valine,please set this value is true
-  appId: # leancloud application app id
-  appKey: # leancloud application app key
+  enable: true # if you want use valine,please set this value is true
+  appId: dtdNx2Jy0jWsGVgTF9Rr8GoD-gzGzoHsz # leancloud application app id
+  appKey: YzooHro32FH5p01fsA1RAUDM # leancloud application app key
   notify: false # valine mail notify (true/false) Deprecated in v1.4.0+
   verify: false # valine verify code (true/false) Deprecated in v1.4.0+
   pageSize: 10 # comment list page size
-  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
+  avatar: mp # gravatar style https://valine.js.org/#/avatar
   lang: en # i18n: zh-CN/zh-TW/en/ja
-  placeholder: Please leave your footprints # valine comment input placeholder(like: Please leave your footprints )
-  guest_info: nick,mail,link #valine comment header info
+  placeholder: 来都来了，说两句呗~ # valine comment input placeholder(like: Please leave your footprints )
+  guest_info: nick,mail #valine comment header info, default: nick,mail,link
   recordIP: false # Record reviewer IP
   serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   emojiCDN: # emoji CDN
-  enableQQ: false # enable the Nickname box to automatically get QQ Nickname and QQ Avatar
+  enableQQ: true # enable the Nickname box to automatically get QQ Nickname and QQ Avatar
   requiredFields: nick,mail # required fields nick/mail/link
   bg: # valine background
   count: false # dispaly comment count in top_img
@@ -439,13 +439,13 @@ canvas_ribbon:
 
 # 動態彩帶
 canvas_ribbon_piao:
-  enable: true
+  enable: false
   mobile: false # false 手機端不顯示 true 手機端顯示
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
 canvas_nest:
-  enable: false
+  enable: true
   color: '0,0,255' #color of lines, default: '0,0,0'; RGB values: (R,G,B).(note: use ',' to separate.)
   opacity: 0.7 # the opacity of line (0~1), default: 0.5.
   zIndex: -1 # z-index property of the background, default: -1.
