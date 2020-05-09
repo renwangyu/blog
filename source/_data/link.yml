@@ -1,0 +1,13 @@
+class:
+  class_name: 友情链接
+  link_list:
+    1:
+      name: renwangyu
+      link: https://blog.renwangyu.com
+      avatar: /img/avatar.jpg
+      descr: xxxxxxx
+    2:
+      name: xxxxxx
+      link: https://www.xxxxxxcn/
+      avatar: https://xxxxx/avatar.png
+      descr: xxxxxxx  
