@@ -12,10 +12,10 @@ menu:
   分类: /categories/ || fa fa-folder-open
   友情链接: /link/ || fa fa-link
   关于: /about/ || fa fa-heart
-  清单||fa fa-list:
-    - 音乐 || /music/ || fa fa-music
-    - 电影 || /film/ || fa fa-film
-    - 照片 || /photo/ || fa fa-picture-o
+  # 清单||fa fa-list:
+  #   - 音乐 || /music/ || fa fa-music
+  #   - 电影 || /film/ || fa fa-film
+  #   - 照片 || /photo/ || fa fa-picture-o
 
 # PWA
 # See https://github.com/JLHwung/hexo-offline
@@ -309,9 +309,9 @@ footer_copyright:
   enable: true
 
 ICP:
-  enable: false
+  enable: true
   url:
-  text:
+  text: 沪ICP备20013153号
   icon: /img/icp.png
 
 ####   Analysis    ####
@@ -533,7 +533,7 @@ fontawesome_v5:
   enable: false
 
 # 加載動畫 Loading Animation
-preloader: false
+preloader: true
 
 ####    側邊欄    ####
 #-------------------------------------
