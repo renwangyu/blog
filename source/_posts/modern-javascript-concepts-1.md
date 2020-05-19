@@ -27,3 +27,4 @@ categories:
 + [命令式(**imperative**)和声明式(**declarative**)编程](/2020/05/19/modern-javascript-concepts-1-imperative-declarative/)
 + [高阶函数(**higher-order function**)](/2020/05/19/modern-javascript-concepts-1-hoc)
 + [函数式编程(**functional programming**)](/2020/05/19/modern-javascript-concepts-1-functional-programming)
++ [可观察对象(**observables**)](/2020/05/19/modern-javascript-concepts-1-observables/)
