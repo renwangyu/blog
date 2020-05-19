@@ -1,5 +1,5 @@
 ---
-title: 【译】现代javascript概念术语part1——纯净性(Purity)
+title: 【译】现代JavaScript概念术语part1——纯净性(Purity)
 date: 2020-05-18 19:28:33
 tags: 
 - javascript
@@ -7,8 +7,6 @@ categories:
 - javascript
 top_img:
 ---
-
-[阅读原文](https://auth0.com/blog/glossary-of-modern-javascript-concepts/)
 
 ## 纯净性：纯函数(**pure function**)，非纯函数(**impure function**)和副作用(**side effect**)
 ### 纯函数
@@ -58,13 +56,16 @@ function getRandomRange(min, max) {
 }
 ```
 
-### javascript里的副作用
+### JavaScript里的副作用
 当一个函数或表达式改变了自身上下文之外的状态，这样的结果就是**副作用**。副作用的例子包括调用一个API，修改DOM，唤起一个alert对话框，写入数据库等等。如果一个函数产生副作用，它就被认为是非纯函数。引发副作用的函数是难以预测的，且当它们导致外部作用域改变的时候将变得难以调试。
 
-### 纯净性优点
+### 纯净性的优势
 大量高质量的代码，是由逻辑性程序性的调用纯函数的非纯函数组成的，但这仍然对调试和不可变性是有益的。引用透明性也带来了缓存化：缓存函数调用的结果，当同样的输入可复用缓存结果。不过确定函数是否真的是纯函数依然是十分有挑战性的。
 
 想学习更多纯净性相关，可参考下列资源：
 + [Pure versus impure functions](https://ultimatecourses.com/blog/pure-versus-impure-functions)
 + [Master the JavaScript Interview: What is a Pure Function?](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976#.kt48h2bfa)
 + [Functional Programming: Pure Functions](https://www.sitepoint.com/functional-programming-pure-functions/)
+
+****
+阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/)
