@@ -67,4 +67,4 @@ JavaScript对象能用方法`Object.freeze(obj)`使对象冻结，让它们成�
 [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux)
 
 ****
-阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/)
+阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#L-span-id--immutable-mutable----span-Immutability-and-Mutability)

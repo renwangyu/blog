@@ -44,4 +44,4 @@ increment(number); // 全局变量 不会 修改：返回 2
 [Redux: predictable state container for JavaScript apps](https://redux.js.org/)
 
 ****
-阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/)
+阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#L-span-id--state----span-State)

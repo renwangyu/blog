@@ -68,4 +68,4 @@ function getRandomRange(min, max) {
 + [Functional Programming: Pure Functions](https://www.sitepoint.com/functional-programming-pure-functions/)
 
 ****
-阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/)
+阅读原文：[https://auth0.com/blog/glossary-of-modern-javascript-concepts/](https://auth0.com/blog/glossary-of-modern-javascript-concepts/#L-span-id--purity----span-Purity--Pure-Functions--Impure-Functions--Side-Effects)

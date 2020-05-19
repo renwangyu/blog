@@ -23,4 +23,7 @@ categories:
 你可以直接进入相应的概念，或者顺序阅读并学习它们
 + [纯净性：纯函数(**pure function**)，非纯函数(**impure function**)，副作用(**side effect**)](/2020/05/18/modern-javascript-concepts-1-purity/)
 + [状态：状态性(**stateful**)和无状态性(**stateless**)](/2020/05/18/modern-javascript-concepts-1-state/)
-+ [不变性(**immutability**)和可变性(**mutability**)](/2020/05/18/modern-javascript-concepts-1-immutability/)
++ [不变性(**immutability**)和可变性(**mutability**)](/2020/05/19/modern-javascript-concepts-1-immutability/)
++ [命令式(**imperative**)和声明式(**declarative**)编程](/2020/05/19/modern-javascript-concepts-1-imperative-declarative/)
++ [高阶函数(**higher-order function**)](/2020/05/19/modern-javascript-concepts-1-hoc)
++ [函数式编程(**functional programming**)](/2020/05/19/modern-javascript-concepts-1-functional-programming)
