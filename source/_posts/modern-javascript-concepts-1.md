@@ -36,5 +36,4 @@ categories:
 > "一个学生一动不动地坐在电脑前已经好几个小时了，忧郁的皱着眉。他试图用一个漂亮的解决方案去解决一个困难的问题，但始终没找到正确的方法。Fu-Tzu敲了下他的后脑并大声说「写点什么！」。这个学生开始写了个缺乏优雅的方案。当他写完后，他突然悟出了一个漂亮的解决方案。"
 ——Marijn Haverbeke, [Eloquent JavaScript, 1st Edition, Chapter 6](http://eloquentjavascript.net/1st_edition/chapter6.html)
 
-针对理解[函数式编程](/2020/05/19/modern-javascript-concepts-1-functional-programming)
-+ [可观察对象(**observables**)](/2020/05/19/modern-javascript-concepts-1-observables/)，[响应式编程](/2020/05/20/modern-javascript-concepts-1-reactive-programming)和[函数响应式编程](/2020/05/20/modern-javascript-concepts-1-functional-reactive-programming)的必要概念可能都很难掌握，更别说精通了。利用泛型基础来编写代码只是第一步，即使刚开始并不完全可靠。实践会照亮前行的路，也会暴露潜在的问题。
+针对理解[函数式编程](/2020/05/19/modern-javascript-concepts-1-functional-programming)，[响应式编程](/2020/05/20/modern-javascript-concepts-1-reactive-programming)和[函数响应式编程](/2020/05/20/modern-javascript-concepts-1-functional-reactive-programming)的必要概念可能都很难掌握，更别说精通了。利用泛型基础来编写代码只是第一步，即使刚开始并不完全可靠。实践会照亮前行的路，也会暴露潜在的问题。
