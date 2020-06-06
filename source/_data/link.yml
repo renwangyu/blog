@@ -6,8 +6,8 @@ class:
       link: https://blog.renwangyu.com
       avatar: /img/avatar.jpg
       descr: xxxxxxx
-    2:
-      name: xxxxxx
-      link: https://www.xxxxxxcn/
-      avatar: https://xxxxx/avatar.png
-      descr: xxxxxxx  
+    # 2:
+    #   name: xxxxxx
+    #   link: https://www.xxxxxxcn/
+    #   avatar: https://xxxxx/avatar.png
+    #   descr: xxxxxxx  

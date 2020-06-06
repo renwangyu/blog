@@ -5,7 +5,11 @@ tags:
 - javascript
 categories:
 - 前端
-top_img: https://lh3.googleusercontent.com/proxy/frlbR7oyZXCuqDfBOJ76XpDBN48tAtQzRppi8DofT4-K5V6uiu82knJ1oqqtUJSIKjjZzs8wHTnOMbSJiei9oUYsvV-O9Q74lXAd3RdGKAeJHF4jLKjBiK6O5z0b8A
+keywords:
+- 事件队列
+- 浏览器渲染
+top_img: https://pic4.zhimg.com/v2-0b35a3df0b2e2712839ce551062e6d7f_1200x500.jpg
+cover: https://pic4.zhimg.com/v2-0b35a3df0b2e2712839ce551062e6d7f_1200x500.jpg
 ---
 
 ### 前言
