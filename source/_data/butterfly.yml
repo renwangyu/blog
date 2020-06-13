@@ -50,7 +50,7 @@ copy:
 #   icon: link || the description
 # ---------------
 social:
-  fa fa-home: http://renwangyu.com/ || Home
+  fa fa-home: https://renwangyu.com/ || Home
   fa fa-github: https://github.com/renwangyu || Github
   fa fa-envelope: mailto:renwangyu1106@gmail.com || Email
   # fa fa-rss: /atom.xml || RSS
