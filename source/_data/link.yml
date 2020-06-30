@@ -2,10 +2,10 @@ class:
   class_name: 友情链接
   link_list:
     1:
-      name: 杠精人群教育中心
-      link: https://www.yuque.com/dashuibi
+      name: 魔法练习
+      link: http://blog.codermagefox.com/
       avatar: https://i.loli.net/2020/06/17/3JAKWLZUxjnwtOH.jpg
-      descr: 奔涌吧,杠精!
+      descr: CoderMageFox
     2:
       name: Lionad-Guirotar
       link: http://www.lionad.art/
