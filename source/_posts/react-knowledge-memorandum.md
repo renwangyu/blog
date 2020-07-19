@@ -92,7 +92,7 @@ function hello(props) {
 首先看[这篇好文](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)了解下概念。简单的说就是能不能接触并处理组件内部，`ref`就可以使组件编程**受控**(可以直接改dom值)。但是我觉得还是要尽量写成**非受控**的，因为我们用react，那最好就用react的方式去更新才是最好的。
 
 ### 自定义hook
-自定义hook也必须以use开头，这是react hook在设计上的约定，也是react知道是hook的原因，然后hook中可以继续使用hook，切记不要在普通函数中使用hook。
+**自定义hook也必须以use开头**，这是react hook在设计上的约定，也是react知道是hook的原因，然后hook中可以继续使用hook，切记**不要在普通函数中使用hook**。
 
 ### 参考文章
 [React Hooks 最佳实践](https://zh-hans.reactjs.org/blog/2020/05/22/react-hooks.html)
