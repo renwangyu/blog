@@ -193,18 +193,30 @@ then(onResolve, onReject) {
   });
 }
 ```
-分析之前，我们再重提一个理解共识：executor的参数是状态转移函数，主要用于Promise实例状态改变。而then函数是处理函数
-+ stage 1：判断传参函数的类型做兼容，这就是为什么then()什么都不传也能透传结果的原因。
+分析之前，我们再重提一个理解共识：executor的回调传参是状态转移函数，主要用于Promise实例状态改变。而then函数的回调传参是处理函数。
++ stage 1：判断传参函数的类型做兼容，这就是为什么then()什么都不传也能```透传结果```的原因。
 + stage 2：返回新的Promise实例（记住状态转移函数resolveFn和rejectFn），并立即执行传入的函数。
 + stage 3：定义fuifillmentFn和rejectionFn之后（主要依赖闭包），根据当前状态判断：
   - pedding，表示异步逻辑，将成功失败回调放入相应的队列。等待上一个实例的状态转移调用改变了状态，再执行相应的回调。
   - 非pedding，进入同步逻辑，直接调用各自的回调。
 + 以成功为例，不论同步或异步，等resolve（还记得开头定义的reolve嘛，就是那个）调用后，this.value作为参数调用fuifillmentFn。
-+ stage 4：先调用在then函数中的处理函数onResolve，并用resolve后的参数，返回处理后的结果。
-+ stage 5：如果onResolve处理后返回一个新的Promise实例，意味出现了一个新的节点，因此就需要把这个实例执行then，并把状态转移函数resolveFn和rejectFn当做处理函数传递过去，等到那个实例状态改变调用处理函数的时候，就可以通过resolveFn把stage 2返回的实例的状态改变，这样如果之后继续有then的调用，就能把链式调用继续下去。
++ stage 4：先调用在then函数中的处理函数onResolve，并用resolve后的参数，```返回处理后的结果```。
++ stage 5：如果onResolve处理后返回一个新的Promise实例，意味出现了一个新的节点，因此就需要把这个实例执行then，```并把状态转移函数resolveFn和rejectFn当做处理函数传递过去```，等到那个实例状态改变调用处理函数的时候，就可以通过resolveFn把stage 2返回的实例的```状态改变```，这样如果之后继续有then的调用，就能把链式调用继续下去。
   > 如同一个链表a->b，当a返回新的Promise实例，那么就如同a->c->b，那么c就必须next才能到b，所以这里的then就相当于这个next。
 + stage 6：如果不是Promise实例，则直接把stage 2返回的实例改变状态，链式调用得以继续。
 通过以上对成功状态的总结，大致就可以理解then函数的调用，关键是如同钩子一般的设计，非常巧妙。
+
+## 兜底catch
+实际使用中我们很少在then中传入错误处理，一般都会在末尾加上catch处理。根据上面的描述，懂了then之后，catch就非常容易，直接上码。
+```javascript
+class MyPromise {
+  // ...
+  catch(reject) {
+    this.then(null, reject);
+  }
+}
+```
+then的另类应用，简单实用~
 
 # 总结
 通过上述分析，我们就得到了一个简单的MyPromise，代码全体如下：
@@ -296,6 +308,10 @@ class MyPromise {
         rejectionFn(this.reason);
       }
     });
+  }
+
+  catch(reject) {
+    this.then(null, reject);
   }
 }
 ```
