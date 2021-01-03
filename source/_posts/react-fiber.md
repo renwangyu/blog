@@ -8,8 +8,8 @@ categories:
 - 前端
 keywords:
 - react fiber
-top_img: https://i.loli.net/2020/07/19/n8j3EXbTO2uHeIh.png
-cover: https://i.loli.net/2020/07/19/n8j3EXbTO2uHeIh.png
+top_img: /img/post/react-fiber.png
+cover: /img/post/react-fiber.png
 ---
 
 ### 前言
@@ -53,7 +53,7 @@ React开发团队称这种自顶而下、无法中断的更新流程为`stack re
 
 ### Fiber tree
 要实现增量更新，必然依赖更多的上下文信息，之前的vDOM tree显然有些力不从心，所以诞生了`Fiber tree(带有Fiber上下文的vDOM tree)`~~更新过程就是根据输入数据以及现有的Fiber tree构造出新的Fiber tree`快照`(workInProgress tree)。
-![vDOM Tree(图上)与Fiber Tree(图下)对比图](https://i.loli.net/2020/07/19/SEUONwlP5CxKXMq.png)
+![vDOM Tree(图上)与Fiber Tree(图下)对比图](/img/post/fiber-tree.png)
 相比较vDOM tree，其实`Fiber tree`是一种基于`单链表的树结构`。而`fiber`也是对应的存储每一个节点信息的`数据结构`，大概长这么样：
 ```javascript
 {
@@ -75,7 +75,7 @@ React开发团队称这种自顶而下、无法中断的更新流程为`stack re
 
 ### Fiber Reconciler
 既然是渲染更新算法的重构，那首当其冲就是`reconciler层`(这里是生成vDOM，并diff出差异的关键)。fiber把reconciler分成了两个阶段：
-![Fiber Reconciler的两个阶段](https://i.loli.net/2020/07/19/ZTPfzaELsxtXcD2.png)
+![Fiber Reconciler的两个阶段](/img/post/fiber-2-phase.png)
 
 #### Phase1：render/reconciliation阶段
 这一阶段是**可中断的**，也就是说在更新任务进行中被另一个更高优先级更新任务中断，则低优先级更新任务会终止，所做的工作也会完全抛弃，等更高优先级任务结束，再重头开始做。
@@ -98,7 +98,7 @@ React开发团队称这种自顶而下、无法中断的更新流程为`stack re
 
 ### 再谈workInProgress tree
 之前提到workInProgress tree是reconcile过程中从Fiber tree建立的当前进度快照，构造的构成就是diff的过程。当构造完毕得到的就是新的Fiber tree，然后喜新厌旧(把current指针指向workInProgress tree，丢掉旧的Fiber tree)就好了。这样一来就完成了阶段一的工作，可以开始阶段二的一气呵成了~~之后再有新的更新，循环往复。
-![workInProgress tree](https://i.loli.net/2020/07/19/K6DkqLWVrF1d8nU.png)
+![workInProgress tree](/img/post/workIn-progress.png)
 
 ### React Fiber中的生命周期函数
 由于Fiber Reconciler的两个阶段，相应的生命周期在代码中的调用也起了一点微妙的变化。

@@ -5,20 +5,20 @@ tags:
 - javascript
 categories:
 - 前端
-top_img: https://i.loli.net/2020/10/06/hWq5VwlHQLZTStG.png
-cover: https://i.loli.net/2020/10/06/hWq5VwlHQLZTStG.png
+top_img: /img/post/js-debugger.png
+cover: /img/post/js-debugger.png
 ---
 
 ### 前言
 前段时间，产品来了个需求：输入框中划词选中的内容匹配词槽。所以只能苦逼地在国庆加班搞一下（嗯，三倍还是挺香的），之前也模模糊糊地了解过浏览器有鼠标拖动选中内容的api，这次索性跟着需求彻底捋一遍Selection和Range这对双生子，顺便把踩过的坑记录一下。文章有点长，阅读可能需要花点时间~
 先来看下实现后的需求效果，好有个感官上的认识。
-![划词效果gif](https://i.loli.net/2020/10/06/EKfbV827MGlSUxc.gif)
+![划词效果gif](/img/post/huaci.gif)
 
 ### 特殊的前提
 因为是在输入框内选中，并且选中的内容加上对应颜色和下面的列表呼应，所以这里只能采用富文本的方法，没错，就是在容器上增加```contenteditable="true"```属性。不清楚的同学可以[点击这里](https://developer.mozilla.org/zh-CN/docs/Web/HTML/Global_attributes/contenteditable)来了解更多，因为不是重点，咱们这就不过多展开了。当然，如果只是划词一般页面上的内容，那么就可以忽略这个前提。
 
 ### 先来看Range
-![Range](https://developer.mozilla.org/zh-CN/docs/Web/API/Range)本质上是页面上的一个```起始边界点间的区域```：包含一个范围起点和范围终点。
+[Range](https://developer.mozilla.org/zh-CN/docs/Web/API/Range)本质上是页面上的一个```起始边界点间的区域```：包含一个范围起点和范围终点。
 > 不仅仅可以用于鼠标划词，页面上任何元素、文本都可以创建Range。
 
 #### 创建一个Range实例
@@ -78,7 +78,7 @@ console.log(range.toString()); // 『招商银行』
 
 #### Range的属性
 Range生成后的属性非常有用，往往可以作为后续操作的依据。通过一张图，我们来了解下Range的属性概念：
-![](https://i.loli.net/2020/10/06/vUCZS7jc54RyqWi.jpg)
+![](/img/post/range-demo.jpg)
 + startContainer：起始节点，即上图中的&lt;p&gt;的第一个文本节点。
 + startOffset：起始节点偏移量，为2。
 + endContainer：结束节点，即上图中的&lt;b&gt;的第一个文本节点。
@@ -103,7 +103,7 @@ Range生成后的属性非常有用，往往可以作为后续操作的依据。
 ### Selection登场
 说完Range，接下来我们看看双生子中的另一位：[Selection](https://developer.mozilla.org/zh-CN/docs/Web/API/Selection)。
 如果说Range是用于选择范围的对象，通过创建Range对象，来获取页面文档上的一个范围，那么Selection就是用来表示文档选择的。通过Firefox的一张图来看下(**一个选择可以包括零个或多个范围，不过实际上只有Firefox是支持Selection里有多个Range，其余的高级浏览器只支持一个Range，一般我们也只用一个就足够，就忽略Firefox的这种多个情况吧**)：
-![firefox-selection.png](https://i.loli.net/2020/10/06/pcT2ax1CWr4FfVs.png)
+![firefox-selection.png](/img/post/selection.png)
 如上图所示，蓝色就是Selection，也就是在文档中的选择范围。
 
 #### 获取全局Selection对象

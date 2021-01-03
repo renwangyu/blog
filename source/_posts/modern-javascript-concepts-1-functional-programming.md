@@ -5,7 +5,8 @@ tags:
 - javascript
 categories:
 - javascript
-top_img:
+top_img: /img/php-code.jpg
+cover: /img/php-code.jpg
 ---
 
 ## 函数式编程

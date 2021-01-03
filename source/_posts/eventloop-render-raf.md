@@ -26,7 +26,7 @@ cover: https://pic4.zhimg.com/v2-0b35a3df0b2e2712839ce551062e6d7f_1200x500.jpg
 + 主线程不断重复上面执行捞取的步骤。
 
 重复不断？嗯，这个循环的过程就是**事件循环**`event loop`。
-![事件循环](https://i.loli.net/2020/06/02/gOACncZyRbdpXWh.jpg)
+![事件循环](/img/post/event-loop.jpeg)
 
 ### 任务队列分类
 首先明确，只要在任务队列里的，都是异步任务了，ok，继续往下：
@@ -73,10 +73,10 @@ cover: https://pic4.zhimg.com/v2-0b35a3df0b2e2712839ce551062e6d7f_1200x500.jpg
 ### requestIdleCallback
 简称rIC，让我们把一些计算量较大但是又没那么紧急的任务放到空闲时间去执行。不要去影响浏览器中优先级较高的任务，比如动画绘制、用户输入等等。日常开发用的比较少，简单看看其运行：
 + 每个idle回调都是比较小的切片，要求我们去读取`rIC`提供给的`deadline`里的时间，去动态的安排我们切分的小任务。比如根据截止时间，保存已做的，跳出，到下一个idle时机继续。
-  ![渲染有序进行](https://i.loli.net/2020/06/03/1VxnySjOviA9Rft.png)
+  ![渲染有序进行](/img/post/rIC-1.png)
 
 + 有时候可能在未来几帧的时期，浏览器都是空闲的(执行栈和任务队列为空)，并没有发生影响视图的操作，也就不需要绘制页面，此时会有一个`50ms`的**deadline**，因为浏览器要提前应对用户可能的突发交互操作，防止用户产生卡顿的感觉。[详见此文](https://developer.mozilla.org/zh-CN/docs/Web/API/Background_Tasks_API)
-![渲染长期空闲](https://i.loli.net/2020/06/03/IjgSvzFVrm2TLwG.png)
+![渲染长期空闲](/img/post/rIC-2.png)
 
 ### 结尾
 到此，基本上一个事件循环，任务队列和渲染的流程以及相关的重要api介绍的七七八八了。也算是自己的一个理解和总结~

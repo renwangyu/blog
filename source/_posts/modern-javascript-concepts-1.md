@@ -5,7 +5,8 @@ tags:
 - javascript
 categories:
 - javascript
-# top_img: https://cdn.auth0.com/blog/js-fatigue/JSLogo.png
+top_img: /img/php-code.jpg
+cover: /img/php-code.jpg
 ---
 
 ## 引子

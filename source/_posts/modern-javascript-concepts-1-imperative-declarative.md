@@ -5,7 +5,8 @@ tags:
 - javascript
 categories:
 - javascript
-top_img:
+top_img: /img/php-code.jpg
+cover: /img/php-code.jpg
 ---
 
 ## 命令式编程和声明式编程

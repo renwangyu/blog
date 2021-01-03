@@ -6,8 +6,8 @@ tags:
 categories:
 - 前端
 top_img: /img/earth-bg.jpg
-cover: https://i.loli.net/2020/09/07/vCSZVmuzLt1lGkN.png
+cover: /img/post/git.png
 ---
 
 记录一张好图，以后忘了命令就能来看看。
-![git.png](https://i.loli.net/2020/09/07/vCSZVmuzLt1lGkN.png)
+![git.png](/img/post/git.png)

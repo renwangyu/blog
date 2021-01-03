@@ -14,5 +14,6 @@ class:
     3:
       name: renwangyu
       link: https://blog.renwangyu.com
-      avatar: https://i.loli.net/2020/05/17/o6q1KlDVTCwUati.jpg
+      # avatar: https://i.loli.net/2020/05/17/o6q1KlDVTCwUati.jpg
+      avatar: /img/avatar.jpg
       descr: 80后大叔de自我简介🤖

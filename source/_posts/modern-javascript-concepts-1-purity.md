@@ -5,7 +5,8 @@ tags:
 - javascript
 categories:
 - javascript
-top_img:
+top_img: /img/php-code.jpg
+cover: /img/php-code.jpg
 ---
 
 ## 纯净性：纯函数(**pure function**)，非纯函数(**impure function**)和副作用(**side effect**)

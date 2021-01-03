@@ -5,8 +5,8 @@ tags:
 - javascript
 categories:
 - 前端
-top_img: https://i.loli.net/2020/09/06/IcxbDBU6Tv5Hjyw.png
-cover: https://i.loli.net/2020/09/06/IcxbDBU6Tv5Hjyw.png
+top_img: /img/post/promise.png
+cover: /img/post/promise.png
 ---
 
 # 前言
