@@ -1,5 +1,5 @@
 ---
-title: 2021了，来套react开发环境：搭建篇
+title: 2021了，这样来搞react开发环境：搭建
 date: 2021-07-14 14:13:32
 tags:
 - javascript
@@ -13,7 +13,7 @@ cover: /img/post/computer.png
 ---
 
 ### 前言
-在写了2年的vue后，终于又能愉快的用react了~2021了，得益于那些伟大的项目，前端的环境搭建也早已不像从前那样风格迥异，艰难异常。我们就来已创建一个lib工程为例，看看如何用`create-react-app`(cra)配合一系列其他工具，快速搭建一个用于开发组件lib库的react开发环境。
+在写了两年的vue后，终于又能愉快的用react了~2021了，得益于那些伟大的项目，前端的环境搭建也早已不像从前那样风格迥异，艰难异常。我们就来已创建一个lib工程为例，看看如何用`create-react-app`(cra)配合一系列其他工具，快速搭建一个用于开发组件lib库的react开发环境。
 
 ### 我们的目标
 + 用cra创建，但不用`eject`来反编译生成构建源码。
@@ -167,6 +167,7 @@ REACT_APP_NODE_ENV = "library"
 
 ### 重写config-overrides.js
 安装了`react-app-rewires`和`env-cmd`后，我们就可以根据环境变量配置相应的webpack配置了，这里我们只是简单的把打包方式和css做下处理。
+我们新建一个脚本，比如`scripts/library.config.js`，写入我们的自定义配置：
 ```javascript
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -219,17 +220,63 @@ module.exports = function(config, env, options) {
 };
 ```
 上面代码中的externals，主要是用来在`process.env`中筛选出`react`，`react-dom`等作为外部依赖，写法比较独特。
+然后在`config-overrides.js`中，将我们刚才写的逻辑加入：
+```javascript
+const libraryConfig = require('./scripts/library.config.js');
+
+module.exports = {
+  webpack: function(config, env) {
+    config = libraryConfig(config, process.env.REACT_APP_NODE_ENV);
+    return config;
+  }
+}
+```
+此时传入我们在`.env.library`中定义的REACT_APP_NODE_ENV变量，即可复写webpack中的配置。
+
 至此，我们通过cra以及其他工具，就已经搭建了好了一个能用来打包lib的开发环境，接下来就可以开始组件的开发了。
 
-### 在src下创建components目录
-我们的组件放在如下目录，然后按照如下格式依次创建文件：
+### 组件编写
+在src目录下，新建组件放的目录components和样式目录styles：
 ```bash
-my-app
-└── src
-    ├── components
-        ├── Demo
-            ├── index.js
-            ├── Demo.jsx
-            ├── Demo.scss
-            ├── Readme.md
+src
+├── components
+└── styles // 样式目录
+    ├── index.scss
+    ├── mixins.scss
+    └── variables.scss
 ```
+以Demo组件为例，按照如下格式依次在components下创建文件：
+```bash
+components
+└── Demo
+    ├── index.js
+    ├── Demo.jsx
+    ├── Demo.scss
+    └── Readme.md
+```
+最后在`src/index.js`中对外抛出即可。
+```javascript
+import Demo from './components/Demo';
+export default {
+  Demo,
+};
+```
+
+### 本地调试 & 文档
+本地开发模式下参与调试的文档工具很多，比如大名鼎鼎的`storybook`和`docz`，这里，我们选用[react-styleguidist](https://github.com/styleguidist/react-styleguidist)，看看github上的示例图，应该还挺好用。
+![react-styleguidist.gif](https://user-images.githubusercontent.com/1703219/74945569-51c6ad00-543b-11ea-8351-f4d86860893a.gif)
+这里不多赘述，只要按照官方文档的操作，react-styleguidist会默认为`src/components/**/*.js`的js文件生成文档。通过生成的文档我们可以看出，react-styleguidist读取了注解、Button.propTypes和Button.defaultProps为我们生成了组件文档，并且将propTypes的注解放到description中。
+> 注：react-styleguidist读取的是注解，不是注释语句
+
+在实际开发中，我们还能通过在组件下新建`Readme.md`来自定义文档，在md文件中可以写jsx和style，可谓是非常贴心了。
+安装后，修改package.json：
+```json
+scripts: {
+  "start": "styleguidist server",
+  ...
+}
+```
+来，启动start，感受下吧~
+
+### 总结
+通过以上步骤，我们就能创建出一个比较合理的开发环境。2021了，在日新月异大浪淘沙的前端领域，这些神奇的项目工具让我们能站在巨人的肩膀上，摆脱曾经刀耕火种般的手工劳动，轻轻松松就能搭建出一整套react开发环境，虽然工程是多样的，但是终究是万变不离其宗的。项目搭建后仍需要对开发过程的校验，在下一篇中再详细介绍。
