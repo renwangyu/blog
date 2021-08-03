@@ -66,12 +66,130 @@ eslint --init
     'react/jsx-filename-extension': ['off'] // jsx要在jsx的扩展名文件中
   }
   ```
-上述操作后，基本上就已经配置好了我们的eslint，这里在提一下如果我们不需要对某些文件做校验，可以编写`.eslintignore`文件，加上我们的忽略的文件名，如：
+上述操作后，基本上就已经配置好了我们的eslint，这里在提一下如果我们不需要对某些文件做校验，可以编写`.eslintignore`文件，写入我们需要忽略的文件名，如：
 ```bash
 build/*.js
 src/assets
 public
 .eslintrc.js
 ```
+最后把我们的eslint任务写入package.json的脚本中：
+```json
+"scripts": {
+  ...
+  "eslint:lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
+  "eslint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx src --color"
+}
+```
+带有`--fix`的会对文件自动修复。
 
 ### commitlint
+代码的提交规范和规范的校验神器，安装简单：
+```bash
+npm install -S @commitlint/config-conventional @commitlint/cli
+```
+然后在项目根目录创建文件`commitlint.config.js`，然后输入我们的配置：
+```javascript
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  parserPreset: 'conventional-changelog-conventionalcommits',
+  rules: {
+    'body-leading-blank': [1, 'always'],
+    'body-max-line-length': [2, 'always', 100],
+    'footer-leading-blank': [1, 'always'],
+    'footer-max-line-length': [2, 'always', 100],
+    'header-max-length': [2, 'always', 80],
+    'scope-case': [2, 'always', 'lowerCase'],
+    'subject-case': [
+      2,
+      'never',
+      ['sentence-case', 'start-case', 'pascal-case', 'upper-case'],
+    ],
+    'subject-empty': [2, 'never'],
+    'subject-full-stop': [2, 'never', '.'],
+    'type-case': [2, 'always', 'lowerCase'],
+    'type-empty': [2, 'never'],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'build',
+        'chore',
+        'ci',
+        'docs',
+        'feat',
+        'fix',
+        'perf',
+        'refactor',
+        'revert',
+        'style',
+        'test',
+      ],
+    ],
+  },
+};
+```
+> 此处不做过多的配置解释，具体字段配置可参考[官方文档](https://commitlint.js.org/#/reference-configuration?id=configuration-object-example)
+
+最后把我们的commitlint任务写入package.json的脚本中：
+```json
+"scripts": {
+  ...
+  "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+}
+```
+
+### lint-staged
+设想一下，如果每次提交都会校验整个项目，那将会是多么恐怖。所以我们要先装`lint-staged`：每次提交只检查本次提交所修改的文件。
+```bash
+npm install -S lint-staged
+```
+然后创建配置文件`.lintstagedrc.json`(也可以在package.json文件中添加`lint-staged`属性做配置)，比如我们项目中需要对每次提交的src下的js、jsx、ts、tsx做校验：
+```json
+{
+  "src/**/*.{js,jsx,ts,tsx}": [
+    "npm run eslint:lint"
+  ]
+}
+```
+老样子，我们把lint-staged任务写入package.json的脚本中：
+```json
+"scripts": {
+  ...
+  "pre-commit": "lint-staged"
+}
+```
+
+### husky
+通过上面的配置，我们的任务都有了，该最后做调用了。我们安装git钩子插件[husky](https://typicode.github.io/husky/#/)来作为调用的是的钩子。
+采用官方的推荐安装：
+```bash
+npx husky-init && npm install
+```
+会在项目根目录创建`.husky`目录，所有的钩子脚本就可以在此目录下创建。默认会生成`pre-commit`钩子任务。
+> 注：husky在7.0版本后，不再采用package.json下的husky属性配置方式，所以此处不再介绍该方法。
+
+然后我们在`pre-commit`钩子任务文件里写入：
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run pre-commit
+```
+这样一来我们就可以在`pre-commit`阶段调用`pre-commit`任务(也就是`lint-staged`的任务，对待提交的src下的相应扩展名的文件做eslint:lint的校验)。
+
+同样，我们也能自己创建新的钩子任务。通过如下命令创建一个`commit-msg`的钩子任务来校验commit信息是否满足我们的commitlint配置的规则：
+```bash
+npx husky add .husky/commit-msg 'npm run commit-msg'
+```
+生成的`commit-msg`文件内容如下：
+```bash
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run commit-msg
+```
+很简单吧，这样就能对项目提交时候的commit信息做校验了。
+
+### 总结
+经过上面的配置，就已经对项目做了一层保护，在多人开发的时候对代码质量和commit提交很有帮助，有利于今后的维护和项目回溯。前端工程化的领域很多，慢慢积累，多关注好的工具，一步步让项目更健壮更自动化吧~
