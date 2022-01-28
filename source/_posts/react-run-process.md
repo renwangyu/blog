@@ -1,5 +1,5 @@
 ---
-title: react运行过程随机
+title: react运行过程随记
 date: 2021-11-07 12:48:42
 tags:
 - react
@@ -7,8 +7,8 @@ categories:
 - 前端
 keywords:
 - react
-top_img: /img/post/react-philosophies.png
-cover: /img/post/react-philosophies.png
+top_img: /img/post/react-running.png
+cover: /img/post/react-running.png
 ---
 
 + ReactDOM.render
