@@ -3,13 +3,12 @@ title: React 18源码分析：新的挂载方式
 date: 2022-05-09 19:50:47
 tags:
 - react
-- javascript
 categories:
 - 前端
-- keywords:
+keywords:
 - react
-top_img: https://keyholesoftware.com/wp-content/uploads/React-Hooks-862x431.png
-cover: https://keyholesoftware.com/wp-content/uploads/React-Hooks-862x431.png
+top_img: /img/post/reactdom-render.png
+cover: /img/post/reactdom-render.png
 ---
 
 ### 前沿
