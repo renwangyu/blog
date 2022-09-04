@@ -13,6 +13,7 @@ cover: /img/post/modern-browser.png
 浏览器作为前端开发工程师的主战场，每天我们都要和它打交道，因此能更好的搞懂现代高级浏览器（以Chrome为例），对前端工程师的开发和性能优化的理解，都有很大的帮助。本文在经典系列文章[Inside look at modern web browser](https://developer.chrome.com/blog/inside-browser-part1/)的基础上，结合我的实际经验，尽可能通俗易懂的解释现代浏览器的主要工作原理。
 
 # 前置知识之CPU & GPU & Process & Thread
+
 ![](/img/post/modern-browser/modern-browser-cpu.png)
 + 中央处理器，计算机的核心
 + 能处理任何数学计算图形绘制等任何任务，只要知道怎么干
@@ -32,14 +33,18 @@ cover: /img/post/modern-browser.png
 
 Process可以描述为运行状态中的程序。 
 Thread是存在于Process内部并用来执行其程序任务的某一部分。
+
 ![](/img/post/modern-browser/modern-browser-process.png)
 启动程序时，将会创建一个进程。 该程序可能会创建线程来帮助它工作，但这是可选的。 操作系统为进程提供了一“块”内存，并且所有程序状态都保存在该专用内存空间中。 当你关闭程序时，该进程也会消失，操作系统会释放内存。
+
 ![](/img/post/modern-browser/modern-browser-memory-1.png)
 进程可以要求操作系统启动另一个进程来执行不同的任务。 当这种情况发生时，将为新进程分配不同的内存。 如果两个进程需要通信，他们可以通过使用进程间通信（IPC）来实现。 许多程序都是以这种方式工作的，因此如果一个工作进程失去响应，则可以重新启动它，而不会停止运行程序的其他进程。
+
 ![](/img/post/modern-browser/modern-browser-memory-2.png)
 
 # 现代浏览器（Chrome）架构
 我们以Chrome为例，顶部是浏览器进程与处理应用程序不同部分的其他进程协调。 对于渲染器进程，会创建多个进程并将其分配给每个选项卡。 Chrome 还为每个选项卡提供了一个进程。
+
 ![](/img/post/modern-browser/modern-browser-chrome-process-1.png)
 
 | 进程名 | 进程描述 |
@@ -65,8 +70,10 @@ Thread是存在于Process内部并用来执行其程序任务的某一部分。
 > 内存小怪兽不是随便叫的，因此不要多开tab，不用的要及早关掉。
 
 当使用Chrome的时候，其中调用的服务也是和tab管理一样，比如当机器设备性能好的时候，每个服务会以独立的进程形式存在，这样虽然消耗了更多资源，但是能提供更快和更稳定的服务。
+
 ![](/img/post/modern-browser/modern-browser-chrome-process-3.png)
 如果机器不怎么好，那就会把某些服务合并在一个进程中，以较少资源消耗。
+
 ![](/img/post/modern-browser/modern-browser-chrome-process-4.png)
 
 # 输入URL到页面渲染结束
@@ -85,6 +92,7 @@ Thread是存在于Process内部并用来执行其程序任务的某一部分。
 
 那这里重点是浏览器是怎么渲染的呢？
 ## 在地址栏输入，UI thread会判断是设置，搜索还是URL
+
 ![](/img/post/modern-browser/modern-browser-url-1.png)
 
 ## 浏览器对请求站点发起网络请求，Network thread会接管请求
@@ -172,6 +180,7 @@ Thread是存在于Process内部并用来执行其程序任务的某一部分。
 
 ![](/img/post/modern-browser/modern-browser-render-2.png)
 到此为止，有了DOM Tree和CSSOM，就可以依据两者来构建Render Tree：
+
 ![](/img/post/modern-browser/modern-browser-render-tree.png)
 
 ## 渲染之布局（Layout）
@@ -191,6 +200,7 @@ Layout会损耗大量的性能，也是页面渲染的瓶颈，大到页面布�
 > 过程和canvas绘图的思维很像，后画的会覆盖前画的
 
 相对上一步Layout，Paint的消耗小多了。
+
 ![](/img/post/modern-browser/modern-browser-paint-records.png)
 
 ## 渲染之合成（Compositing）
@@ -211,6 +221,7 @@ Layout会损耗大量的性能，也是页面渲染的瓶颈，大到页面布�
 > 用will-change或translateZ提升移动的元素
 
 虽然layer的机制能很好的提升后续的渲染性能，但并不是说越多越好，因为每一图层都与需要内存和管理的开销，过多的图层栅格化也可能会影响每一帧的速度。所以css不要滥用，尤其分层的属性要慎用，动画的时候要三思。
+
 ![](/img/post/modern-browser/modern-browser-layer-tree.png)
 
 + 对每个图层进行栅格化（rasterize）
@@ -225,3 +236,71 @@ Layout会损耗大量的性能，也是页面渲染的瓶颈，大到页面布�
   - 如果因为操作或其他原因产生新的合成帧（Compositor Frame），一并交给GPU，一起渲染
 
 由此，当滚动页面或元素动画的时候，由于图层已经栅格化了，所以不需要再重新计算，只需要再合成新的一帧就行了。
+
+# 渲染流程中的开销
+渲染的阶段，每个阶段都会用到上一个阶段生成的成果。所以在性能优化的问题上要考虑某个地方的改动处于什么阶段，因为后面的阶段也会一起变动。这也就是为什么我们要减少回流和重绘，尤其是回流的原因。
+
+![](/img/post/modern-browser/modern-browser-render-process.png)
+合成阶段不需要对style进行计算，也不用等待js执行，因为合成不需要渲染进程，而且有GPU缓存，所以交互的性能最好，页面动画优先用transform而不是position原因就是这个。
+
+![](/img/post/modern-browser/modern-browser-jank.png)
+![](/img/post/modern-browser/modern-browser-raf.png)
+
+> 这就是js动画为什么优先用requestAnimationFrame的原因
+
+# 事件交互
+当用户在页面上进行输入交互（输入，点击，触摸等）时，其实流程是这样的：
++ Browser Process知道用户触发了事件，以及触发的位置，但不知道怎么处理，因为没页面信息
++ Renderer Process虽然有页面的信息，但并不知道发生了什么
++ Browser Process发送事件的详细信息给Renderer Process
++ Renderer Process找到相应事件对象，那么如何找到事件对象？
+  - Compositor thread发送事件信息给js主线程
+  - js主线程通过命中测试（hit test）去遍历之前生成Paint Records中的位置信息，以此确定当前点击的是哪个个对象
++ 执行对象上注册的监听代码
+
+![](/img/post/modern-browser/modern-browser-event.png)
+![](/img/post/modern-browser/modern-browser-point.png)
+
+# 非快速滚动区域（non-fast scrollable region）
+页面合成的过程中，对于有事件绑定的元素组成的区域，Compositor thread在合成的时候，会将这些区域标记为非快速滚动区域。
+也就是说，对于后续滚动的操作：
++ 对于非快速滚动区域，会先把事件给主线程（执行js的线程），等执行完后在做合成操作
++ 对于快速滚动区域，Compositor thread就可以独立的进行合成帧（Compositor Frame）的行为，不用和主线程通信
+
+![](/img/post/modern-browser/modern-browser-scroll-1.png)
+
+> 这就是滚动事件影响性能，尽量少用的原因
+
+其实对于事件委托，如果在可滚动的页面，其实也是会有性能影响。因为整个页面都是非滚动区域，所以你懂的。如果委托的事件逻辑庞大，那么滚动就不会顺滑，会有卡顿的感觉。
+
+![](/img/post/modern-browser/modern-browser-scroll-2.png)
+
+所以为了缓解这个问题（不是解决），可以在scroll监听事件的时候加上passive: true。这个属性会告诉浏览器主线程还是要执行js的，但是Compositor thread仍然可以独立去进行合成帧（Compositor Frame）。
+> 滚动事件中性能的优化点
+
+# 向主线程尽可能少的发送事件
+当屏幕的fps在60的时候（低于30就会有人眼可见的卡顿了），用户就能有平滑的感觉。但通过上述事件交互的流程，对于有些输入事件，其频率会远超每秒60次（触摸屏更多），所以实际上输入事件的触发频率其实是远远高于屏幕的刷新率的。
+
+![](/img/post/modern-browser/modern-browser-frame-1.png)
+
+为了尽可能少的向主线程发送事件，Chrome会连续事件（wheel，mosewheel，mousemove，pointermove，touchmove等）做一个合并，并将调度延迟到下一个requestAnimationFrame前。
+
+![](/img/post/modern-browser/modern-browser-frame-2.png)
+
+相对的，对于不频繁发生的事件（keydown，keyup，mouseup，mousedown，toushstart，touchend等）则还是会立即通信给主线程。
+> 之前提过，浏览器很聪明，不会立马执行完就去刷新屏幕，在这里就是一个体现。
+> 整个过程有点类似react的批量操作。
+
+# 当事件需要使用连续的参数时
+对于大部分应用，浏览器的事件合并机制，已经能优化绝大部分场景。
+但有些特殊的，比如用鼠标或触摸去画图（有些刮刮卡应用），合并后的事件就会使页面线条不够连续。
+这个时候对于鼠标事件，可以用getCoalescedEvent来获取被合成的事件的详细信息。
+
+![](/img/post/modern-browser/modern-browser-continue.png)
+
+补充一下，如果是touch的事件，则需要区分其中三个比较关键的参数：
++ touches：当前屏幕上所有触摸点的list
++ targetTouches：绑定事件的结点的触摸点的list
++ changedTouches：触发事件时发生改变的触摸点list
+
+> 所以想一下，如果我们touchmove的时候写签名，应该调用event的哪个属性？
