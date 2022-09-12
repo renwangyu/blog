@@ -2,7 +2,7 @@
 title: 深入理解ESModule
 date: 2022-09-12 15:54:41
 tags:
-- esm
+- 模块化
 categories:
 - 前端
 top_img: /img/post/esmodule.png
