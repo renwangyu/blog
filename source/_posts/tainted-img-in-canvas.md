@@ -1,12 +1,12 @@
 ---
-title: img跨域和canvas“污染”导致图片空白
+title: 由html2canvas截图空白引出的img跨域和canvas“污染”
 date: 2023-12-02 12:40:31
 tags:
 - 跨域
 categories:
 - 前端
-top_img: /img/post/canvas-tainted.png
-cover: /img/post/canvas-tainted.png
+top_img: /img/post/canvas-tainted.jpeg
+cover: /img/post/canvas-tainted.jpeg
 ---
 
 # 前言
